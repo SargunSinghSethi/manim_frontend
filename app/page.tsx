@@ -1,10 +1,7 @@
 "use client";
 
 import { useUser } from '@clerk/nextjs';
-import { Header } from "@/components/header";
 import { ManimGenerator } from "@/components/manim-generator";
-import { VideoHistorySidebar } from '@/components/video-history-sidebar';
-import { ToggleableSidebar } from '@/components/toggleable-sidebar';
 
 export default function Home() {
   const { isSignedIn, isLoaded } = useUser();
