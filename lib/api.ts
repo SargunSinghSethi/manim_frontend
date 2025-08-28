@@ -84,21 +84,22 @@ export async function getPresignedVideoUrl(videoId: number, token: string) {
       "Authorization": `Bearer ${token}`,
     },
   });
-
+  
   if (!response.ok) {
     const error = await response.json();
     throw new Error(`Failed to get download URL: ${error.error || error.message || 'Unknown error'}`);
   }
-
+  
   return response.json();
 }
 
 
 
-export const getUserVideos = async (limit = 10, offset = 0): Promise<VideoResponse> => {
+export const getUserVideos = async (limit = 10, offset = 0, token: string): Promise<VideoResponse> => {
   const response = await fetch(`${API_BASE_URL}/api/videos?limit=${limit}&offset=${offset}`, {
     method: "GET",
     headers: {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     credentials: "include", // Include cookies for authentication

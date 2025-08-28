@@ -17,7 +17,6 @@ import { CodeBlock } from "@/components/code-block"
 export default function VideoHistoryPage() {
   const router = useRouter()
   const { getToken } = useAuth()
-
   const [videos, setVideos] = useState<Video[]>([])
   const [limit] = useState<number>(12)
   const [offset, setOffset] = useState<number>(0)
@@ -47,9 +46,12 @@ export default function VideoHistoryPage() {
     let cancelled = false
     async function bootstrap() {
       try {
+        const token = await getToken()
+      if (!token) throw new Error("No token available")
         setIsInitialLoading(true)
         setError(null)
-        const data = (await getUserVideos(limit, 0)) as VideoResponse
+        
+        const data = (await getUserVideos(limit, 0,token)) as VideoResponse
         if (cancelled) return
         setVideos(data.videos)
         setHasMore(data.pagination?.hasMore ?? data.videos.length >= limit)
@@ -85,9 +87,11 @@ export default function VideoHistoryPage() {
   async function loadMore() {
     if (isLoading || !hasMore) return
     try {
+      const token = await getToken()
+      if (!token) throw new Error("No token available")
       setIsLoading(true)
       setError(null)
-      const data = (await getUserVideos(limit, offset)) as VideoResponse
+      const data = (await getUserVideos(limit, offset,token)) as VideoResponse
       setVideos((prev) => {
         const seen = new Set(prev.map((v) => v.id))
         return [...prev, ...data.videos.filter((v) => !seen.has(v.id))]
@@ -123,7 +127,9 @@ export default function VideoHistoryPage() {
     setIsInitialLoading(true)
     ;(async () => {
       try {
-        const data = (await getUserVideos(limit, 0)) as VideoResponse
+        const token = await getToken()
+      if (!token) throw new Error("No token available")
+        const data = (await getUserVideos(limit, 0, token)) as VideoResponse
         setVideos(data.videos)
         setHasMore(data.pagination?.hasMore ?? data.videos.length >= limit)
         setOffset(data.pagination?.offset ?? data.videos.length)
