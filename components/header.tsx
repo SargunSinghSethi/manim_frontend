@@ -4,7 +4,6 @@ import Link from "next/link";
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import { ToggleableSidebar } from "./toggleable-sidebar";
 
 export function Header() {
   const { isSignedIn, user, isLoaded } = useUser();
