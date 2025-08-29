@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { History } from "lucide-react";
 
 export function Header() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -31,8 +32,31 @@ export function Header() {
           </Link>
         </div>
         <div className="flex items-center gap-4">
+          {isSignedIn && (
+            <Link
+  href="/history"
+  aria-label="Open video history"
+  className="group"
+>
+  <Button
+    variant="ghost"
+    size="sm"
+    className="flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:bg-muted hover:shadow-sm hover:scale-[1.03] active:scale-[0.97]"
+  >
+    <History
+      className="h-4 w-4 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+      aria-hidden="true"
+    />
+    <span className="hidden sm:inline text-sm font-medium">Video History</span>
+    {/* Tooltip-like label for mobile */}
+    <span className="sm:hidden absolute left-full ml-2 text-xs bg-popover text-popover-foreground px-2 py-1 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+      Video History
+    </span>
+  </Button>
+</Link>
+
+          )}
           <ModeToggle />
-          {/* <ToggleableSidebar /> */}
           {/* Conditional Auth Buttons */}
           {!isLoaded ? (
             // Loading state
@@ -46,7 +70,7 @@ export function Header() {
               <span className="text-sm text-muted-foreground hidden sm:inline">
                 Welcome, {user.firstName || user.username || 'User'}
               </span>
-              <UserButton 
+              <UserButton
                 afterSignOutUrl="/"
                 appearance={{
                   elements: {
