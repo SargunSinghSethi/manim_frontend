@@ -107,7 +107,7 @@ export function ManimGenerator() {
             key={example}
             variant="outline"
             size="sm"
-            className="text-xs"
+            className="text-xs whitespace-normal break-words max-w-xs sm:max-w-full "
             onClick={() => {
               setPrompt(example)
               if (promptInputRef.current) {
@@ -115,7 +115,7 @@ export function ManimGenerator() {
               }
             }}
           >
-            <Sparkles className="mr-2 h-3 w-3" />
+            <Sparkles className="mr-2 h-3 w-3 shrink-0" />
             {example}
           </Button>
         ))}

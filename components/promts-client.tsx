@@ -58,8 +58,7 @@ export default function PromptsClient() {
       setJobId(jobUuid);
       // Update URL with new jobId and prompt
       router.push(
-        `/prompts?jobId=${jobUuid}&prompt=${encodeURIComponent(prompt)}&status=${
-          status ? status : "PENDING"
+        `/prompts?jobId=${jobUuid}&prompt=${encodeURIComponent(prompt)}&status=${status ? status : "PENDING"
         }`
       );
 
@@ -243,7 +242,7 @@ export default function PromptsClient() {
                 key={example}
                 variant="outline"
                 size="sm"
-                className="text-xs"
+                className="text-xs whitespace-normal break-words max-w-xs sm:max-w-full "
                 onClick={() => {
                   setPrompt(example);
                 }}
