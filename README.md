@@ -35,7 +35,7 @@ Key features:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/manim-ai-generator.git
+https://github.com/SargunSinghSethi/manim_frontend.git
 cd manim-ai-generator
 ```
 
